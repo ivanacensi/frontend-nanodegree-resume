@@ -70,6 +70,26 @@ $(document).ready(function() {
   });
 });
 
+function inName(textToInterna) {
+    var result;
+
+    var list = textToInterna.split(" ");
+    if (list.length == 2) {
+        //we make sure that the first letter is captalized
+        var firstLetter = list[0].charAt(0)
+        var endOfWord = list[0].substr(1);
+        var firstName = firstLetter.toUpperCase() + endOfWord;
+        // we captilized the second part of the name
+        var lastName = list[1].toUpperCase();
+        result = firstName + " " + lastName;
+    }
+    else {
+        console.log("Not the right amount of elements in the string");
+        result = textToInterna;
+    }
+
+    return result;
+}
 /*
 The next few lines about clicks are for the Collecting Click Locations quiz in the lesson Flow Control from JavaScript Basics.
 */
