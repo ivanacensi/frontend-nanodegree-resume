@@ -12,10 +12,10 @@ This is empty on purpose! Your code to build the resume will go here.
 var bio = {
     "name": "Ivan Elimbi",
     "role": "Developper",
-    "welcomeMessage": "",
-    "biopic": "",
+    "welcomeMessage": "To the infinite and beyond",
+    "biopic": "http://placehold.it/100x150",
     "contacts": {
-        "mobile": "0675420049",
+        "mobile": "0611427503",
         "email": "ivan.elimbi@acensi.fr",
         "github": "ivanacensi",
         "location": "Paris",
@@ -26,21 +26,17 @@ var bio = {
 var education = {
     schools: [{
         "name": "ECE",
-        "degre": "Master III",
+        "degree": "Master",
+        "dates": "2018",
         "location": "Paris",
-        "majors ": ["Telecomunication and Network"],
+        "major": ["Telecomunication and Network"],
     },
-    {
-        "name": "Jeannne D'Albret",
-        "degre": "Prepa",
-        "location": "Saint-Germain en Laye",
-        "majors  ": ["Physique-Chimie"],
-    },
-    {
-        "name": "Paul Lapie",
-        "degre": "Lycée",
-        "location": "Courbevoie",
-        "majors ": ["Physique-Chimie"],
+    ],
+    onlineCourses: [{
+        "title": "Front End Nanodegree",
+        "school": "Udacity",
+        "dates": "2016-2017",
+        "url": "https://www.udacity.com/"
     },
     ]
 };
@@ -100,28 +96,42 @@ var projects = {
 
 var replacementVariable = "%data%";
 
-var formattedName = HTMLheaderName.replace(replacementVariable, "Ivan Elimbi");
-var formattedRole = HTMLheaderRole.replace(replacementVariable, "Web Developper");
+function displayBio() {
+    var formattedName = HTMLheaderName.replace(replacementVariable, "Ivan Elimbi");
+    var formattedRole = HTMLheaderRole.replace(replacementVariable, "Web Developper");
+    $(formattedName).insertBefore("#topContacts");
+    $(formattedRole).insertAfter("#name");
 
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
+    var formatteBioPic = HTMLbioPic.replace(replacementVariable, bio.biopic);
+    $("#header").append(formatteBioPic);
 
-HTMLheaderName = HTMLheaderName.replace(replacementVariable, bio.name);
-if (bio.skills.length > 0) {
-    $("#header").append(HTMLskillsStart);
-}
+    var formatteWelcomeMsg = HTMLwelcomeMsg.replace(replacementVariable, bio.welcomeMessage);
+    $("#header").append(formatteWelcomeMsg);
 
+    if (bio.skills.length > 0) {
+        $("#header").append(HTMLskillsStart);
+        bio.skills.forEach(function (skill) {
+            var fomattedSkill = HTMLskills.replace(replacementVariable, skill);
+            $("#skills").append(fomattedSkill);
+        });
+    }
+};
 
 function displayContact() {
     var formatedHTMLMobile = HTMLmobile.replace(replacementVariable, bio.contacts.mobile);
     $("#topContacts").append(formatedHTMLMobile);
+    $("#footerContacts").append(formatedHTMLMobile);
+    footerContacts
     var formatedHTMLEmail = HTMLemail.replace(replacementVariable, bio.contacts.email);
     $("#topContacts").append(formatedHTMLEmail);
+    $("#footerContacts").append(formatedHTMLEmail);
     var formatedHTMLGithub = HTMLgithub.replace(replacementVariable, bio.contacts.github);
     $("#topContacts").append(formatedHTMLGithub);
+    $("#footerContacts").append(formatedHTMLGithub);
 };
 
 bio.display = function () {
+    displayBio();
     displayContact();
 };
 
@@ -151,8 +161,6 @@ $(document).click(function (loc) {
     logClicks(loc.pageX, loc.pageY);
 });
 
-
-
 $("#main").append(internationalizeButton);
 
 function displayProject(proj) {
@@ -173,4 +181,42 @@ projects.display = function () {
     projects.projects.forEach(displayProject);
 }
 
-projects.display(); 
+projects.display();
+
+
+education.display = function () {
+    if (education.schools.length > 0) {        
+        education.schools.forEach(function (school) {
+            $("#education").append(HTMLschoolStart);
+            var formatedHTMLSchoolName = HTMLschoolName.replace(replacementVariable, school.name);
+            var formatedHTMLSchoolDegree = HTMLschoolDegree.replace(replacementVariable, school.degree);
+            var formatedHTMLSchoolDates = HTMLschoolDates.replace(replacementVariable, school.dates);
+            var formatedHTMLSchoolLocaTion = HTMLschoolLocation.replace(replacementVariable, school.location);
+            var formatedHTMLSchoolMajor = HTMLschoolMajor.replace(replacementVariable, school.major);
+            $(".education-entry:last").append(formatedHTMLSchoolName + formatedHTMLSchoolDegree);
+            $(".education-entry:last").append(formatedHTMLSchoolDates);
+            $(".education-entry:last").append(formatedHTMLSchoolLocaTion);
+            $(".education-entry:last").append(formatedHTMLSchoolMajor);
+        });
+    }
+    if (education.onlineCourses.length > 0) {
+        $("#education").append(HTMLonlineClasses);
+        education.onlineCourses.forEach(function (onlineClass) {
+            $("#education").append(HTMLonlineStart);
+            var formatedHTMLOnlineTitle = HTMLonlineTitle.replace(replacementVariable, onlineClass.title);
+            var formatedHTMLOnlineSchool = HTMLonlineSchool.replace(replacementVariable, onlineClass.school);
+            var formatedHTMLOnlineDates = HTMLonlineDates.replace(replacementVariable, onlineClass.dates);
+            var formatedHTMLOnlineURL = HTMLonlineURL.replace(replacementVariable, onlineClass.url);
+
+            $(".online-entry:last").append(formatedHTMLOnlineTitle + formatedHTMLOnlineSchool);
+            $(".online-entry:last").append(formatedHTMLOnlineDates);
+            $(".online-entry:last").append(formatedHTMLOnlineURL);
+        });
+    }
+};
+
+education.display();
+
+
+
+
