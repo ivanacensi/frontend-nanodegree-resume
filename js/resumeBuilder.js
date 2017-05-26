@@ -9,67 +9,6 @@ This is empty on purpose! Your code to build the resume will go here.
 //  var funThoughts = awesomeThoughts.replace("awesome", "fun"); 
 //  $("#main").append(funThoughts);
 
-var replacementVariable = "%data%";
-
-var formattedName = HTMLheaderName.replace(replacementVariable, "Ivan Elimbi");
-var formattedRole = HTMLheaderRole.replace(replacementVariable, "Web Developper");
-
-$("#header").append(formattedName);
-$("#header").append(formattedRole);
-
-var work = {
-    jobs: [{
-        "employer": "Acensi",
-        "title": "Junior Developper",
-        "location": "Paris",
-        "dates": "2008-2010",
-        "description": "Junior for a front-office IT Team at an Asset Manager"
-    },
-    {
-        "employer": "Phirst Vanilla",
-        "title": "Developper",
-        "location": "Paris",
-        "dates": "2010-2014",
-        "description": "Lead developper for a front office IT team  at an Asset Manager"
-    },
-    {
-        "employer": "Acensi",
-        "title": "Senior Developper",
-        "location": "Paris",
-        "dates": "2014-now",
-        "description": "Team Leader for a software team"
-    }
-    ]
-}
-
-var projects = {
-    "projects": [{
-        "title": "Dexia AM",
-        "dates": "2008-2009",
-        "description": "A job",
-        "images": ["http://placehold.it/350x150","http://placehold.it/350x150"],
-    },
-    {
-        "title": "Natixis CIB",
-        "dates": "2009-2011",
-        "description": "A job",
-        "images": ["http://placehold.it/350x150"],
-    },
-    {
-        "title": "AXA IM",
-        "dates": "2011-2014",
-        "description": "A job",
-        "images": ["http://placehold.it/350x150"],
-    },
-    {
-        "title": "AXA IM",
-        "dates": "2014-now",
-        "description": "A job",
-        "images": ["http://placehold.it/350x150","http://placehold.it/350x150"],
-    },
-    ],
-};
-
 var bio = {
     "name": "Ivan Elimbi",
     "role": "Developper",
@@ -104,30 +43,109 @@ var education = {
         "majors ": ["Physique-Chimie"],
     },
     ]
+};
+
+var work = {
+    jobs: [{
+        "employer": "Acensi",
+        "title": "Junior Developper",
+        "location": "Paris",
+        "dates": "2008-2010",
+        "description": "Junior for a front-office IT Team at an Asset Manager"
+    },
+    {
+        "employer": "Phirst Vanilla",
+        "title": "Developper",
+        "location": "Paris",
+        "dates": "2010-2014",
+        "description": "Lead developper for a front office IT team  at an Asset Manager"
+    },
+    {
+        "employer": "Acensi",
+        "title": "Senior Developper",
+        "location": "Paris",
+        "dates": "2014-now",
+        "description": "Team Leader for a software team"
+    }
+    ]
 }
+
+var projects = {
+    "projects": [{
+        "title": "Dexia AM",
+        "dates": "2008-2009",
+        "description": "A job",
+        "images": ["http://placehold.it/350x150", "http://placehold.it/350x150"],
+    },
+    {
+        "title": "Natixis CIB",
+        "dates": "2009-2011",
+        "description": "A job",
+        "images": ["http://placehold.it/350x150"],
+    },
+    {
+        "title": "AXA IM",
+        "dates": "2011-2014",
+        "description": "A job",
+        "images": ["http://placehold.it/350x150"],
+    },
+    {
+        "title": "AXA IM",
+        "dates": "2014-now",
+        "description": "A job",
+        "images": ["http://placehold.it/350x150", "http://placehold.it/350x150"],
+    },
+    ],
+};
+
+var replacementVariable = "%data%";
+
+var formattedName = HTMLheaderName.replace(replacementVariable, "Ivan Elimbi");
+var formattedRole = HTMLheaderRole.replace(replacementVariable, "Web Developper");
+
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
 
 HTMLheaderName = HTMLheaderName.replace(replacementVariable, bio.name);
 if (bio.skills.length > 0) {
     $("#header").append(HTMLskillsStart);
 }
 
-function displayWork() {
-    for (job in work.jobs) {
-        $("#workExperience").append(HTMLworkStart);
-        var formatedHTMLworkEmployer = HTMLworkEmployer.replace(replacementVariable, work.jobs[job].employer);
-        var formatedHTMLworkTitle = HTMLworkTitle.replace(replacementVariable, work.jobs[job].title);
-        var line = formatedHTMLworkEmployer.concat(formatedHTMLworkTitle);
-        var formattedDate = HTMLworkDates.replace(replacementVariable, work.jobs[job].dates);
-        var formattedLoacation = HTMLworkLocation.replace(replacementVariable, work.jobs[job].location);
-        var formattedDescription = HTMLworkDescription.replace(replacementVariable, work.jobs[job].description);
-        $(".work-entry:last").append(line);
-        $(".work-entry:last").append(formattedDate);
-        $(".work-entry:last").append(formattedLoacation);
-        $(".work-entry:last").append(formattedDescription);
-    }
+
+function displayContact() {
+    var formatedHTMLMobile = HTMLmobile.replace(replacementVariable, bio.contacts.mobile);
+    $("#topContacts").append(formatedHTMLMobile);
+    var formatedHTMLEmail = HTMLemail.replace(replacementVariable, bio.contacts.email);
+    $("#topContacts").append(formatedHTMLEmail);
+    var formatedHTMLGithub = HTMLgithub.replace(replacementVariable, bio.contacts.github);
+    $("#topContacts").append(formatedHTMLGithub);
 };
 
-displayWork();
+bio.display = function () {
+    displayContact();
+};
+
+bio.display();
+
+function displayWork(job) {
+    $("#workExperience").append(HTMLworkStart);
+    var formatedHTMLworkEmployer = HTMLworkEmployer.replace(replacementVariable, job.employer);
+    var formatedHTMLworkTitle = HTMLworkTitle.replace(replacementVariable, job.title);
+    var line = formatedHTMLworkEmployer.concat(formatedHTMLworkTitle);
+    var formattedDate = HTMLworkDates.replace(replacementVariable, job.dates);
+    var formattedLoacation = HTMLworkLocation.replace(replacementVariable, job.location);
+    var formattedDescription = HTMLworkDescription.replace(replacementVariable, job.description);
+    $(".work-entry:last").append(line);
+    $(".work-entry:last").append(formattedDate);
+    $(".work-entry:last").append(formattedLoacation);
+    $(".work-entry:last").append(formattedDescription);
+};
+
+work.display = function () {
+    work.jobs.forEach(displayWork);
+};
+
+work.display();
 
 $(document).click(function (loc) {
     logClicks(loc.pageX, loc.pageY);
