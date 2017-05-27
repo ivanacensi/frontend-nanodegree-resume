@@ -58,7 +58,7 @@ var work = {
 
 var projects = {
     "projects": [{
-        "title": "Finda Data Ref",
+        "title": "Find Data Ref",
         "dates": "2008-2009",
         "description": "GUI for querying the main Referential Instrument",
         "images": ["http://placehold.it/350x150", "http://placehold.it/350x150"],
@@ -108,10 +108,11 @@ function displayContact() {
     var formatedHTMLMobile = HTMLmobile.replace(replacementVariable, bio.contacts.mobile);
     $("#topContacts").append(formatedHTMLMobile);
     $("#footerContacts").append(formatedHTMLMobile);
-    footerContacts
+    
     var formatedHTMLEmail = HTMLemail.replace(replacementVariable, bio.contacts.email);
     $("#topContacts").append(formatedHTMLEmail);
     $("#footerContacts").append(formatedHTMLEmail);
+
     var formatedHTMLGithub = HTMLgithub.replace(replacementVariable, bio.contacts.github);
     $("#topContacts").append(formatedHTMLGithub);
     $("#footerContacts").append(formatedHTMLGithub);
