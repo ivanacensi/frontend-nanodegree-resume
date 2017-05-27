@@ -1,14 +1,4 @@
-/*
-This is empty on purpose! Your code to build the resume will go here.
- */
-//  $("#main").append("Ivan"); 
-
-//  var awesomeThoughts = "I am Ivan and I'm awesome"; 
-//  console.log(awesomeThoughts); 
-
-//  var funThoughts = awesomeThoughts.replace("awesome", "fun"); 
-//  $("#main").append(funThoughts);
-
+//Data Structure
 var bio = {
     "name": "Ivan Elimbi",
     "role": "Developper",
@@ -20,7 +10,7 @@ var bio = {
         "github": "ivanacensi",
         "location": "Paris",
     },
-    "skills": ["Web", ".NET", "SQL", "NoSQL", "Software Craftmanship", "Project Management"]
+    "skills": [".NET", "Html","CSS","Javascript", "SQL", "NoSQL", "Software Craftmanship", "Project Management"], 
 };
 
 var education = {
@@ -33,12 +23,12 @@ var education = {
     },
     ],
     onlineCourses: [{
-        "title": "Front End Nanodegree",
+        "title": "Front End Web Developper Nanodegree",
         "school": "Udacity",
         "dates": "2016-2017",
-        "url": "https://www.udacity.com/"
+        "url": "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
     },
-    ]
+    ], 
 };
 
 var work = {
@@ -47,55 +37,52 @@ var work = {
         "title": "Junior Developper",
         "location": "Paris",
         "dates": "2008-2010",
-        "description": "Junior for a front-office IT Team at an Asset Manager"
+        "description": "Junior developper for a front-office IT Team for a major Asset Manager"
     },
     {
         "employer": "Phirst Vanilla",
         "title": "Developper",
         "location": "Paris",
         "dates": "2010-2014",
-        "description": "Lead developper for a front office IT team  at an Asset Manager"
+        "description": "Lead developper for a front office IT team for a Asset Manager"
     },
     {
         "employer": "Acensi",
         "title": "Senior Developper",
-        "location": "Paris",
+        "location": "La Défense",
         "dates": "2014-now",
         "description": "Team Leader for a software team"
     }
-    ]
+    ], 
 }
 
 var projects = {
     "projects": [{
-        "title": "Dexia AM",
+        "title": "Finda Data Ref",
         "dates": "2008-2009",
-        "description": "A job",
+        "description": "GUI for querying the main Referential Instrument",
         "images": ["http://placehold.it/350x150", "http://placehold.it/350x150"],
     },
     {
-        "title": "Natixis CIB",
+        "title": "Staging Plattform",
         "dates": "2009-2011",
-        "description": "A job",
+        "description": "A set of data integration tools managing a mutliple providers for Risk management purpose",
         "images": ["http://placehold.it/350x150"],
     },
     {
-        "title": "AXA IM",
-        "dates": "2011-2014",
-        "description": "A job",
-        "images": ["http://placehold.it/350x150"],
-    },
-    {
-        "title": "AXA IM",
+        "title": "c2s",
         "dates": "2014-now",
-        "description": "A job",
+        "description": "Team Leader for a team of developpers. Managing and accompanying them in their different projects",
         "images": ["http://placehold.it/350x150", "http://placehold.it/350x150"],
     },
     ],
 };
 
+
+//Resume building functions
 var replacementVariable = "%data%";
 
+//bio
 function displayBio() {
     var formattedName = HTMLheaderName.replace(replacementVariable, "Ivan Elimbi");
     var formattedRole = HTMLheaderRole.replace(replacementVariable, "Web Developper");
@@ -128,6 +115,10 @@ function displayContact() {
     var formatedHTMLGithub = HTMLgithub.replace(replacementVariable, bio.contacts.github);
     $("#topContacts").append(formatedHTMLGithub);
     $("#footerContacts").append(formatedHTMLGithub);
+
+    var formatedHTMLLocation= HTMLlocation.replace(replacementVariable, bio.contacts.location);
+    $("#topContacts").append(formatedHTMLLocation);
+    $("#footerContacts").append(formatedHTMLLocation);
 };
 
 bio.display = function () {
@@ -135,8 +126,8 @@ bio.display = function () {
     displayContact();
 };
 
-bio.display();
 
+//Work
 function displayWork(job) {
     $("#workExperience").append(HTMLworkStart);
     var formatedHTMLworkEmployer = HTMLworkEmployer.replace(replacementVariable, job.employer);
@@ -155,14 +146,7 @@ work.display = function () {
     work.jobs.forEach(displayWork);
 };
 
-work.display();
-
-$(document).click(function (loc) {
-    logClicks(loc.pageX, loc.pageY);
-});
-
-$("#main").append(internationalizeButton);
-
+//Project
 function displayProject(proj) {
     $("#projects").append(HTMLprojectStart);
     var formatedHTMLprojectTitle = HTMLprojectTitle.replace(replacementVariable, proj.title);
@@ -181,9 +165,7 @@ projects.display = function () {
     projects.projects.forEach(displayProject);
 }
 
-projects.display();
-
-
+//Education
 education.display = function () {
     if (education.schools.length > 0) {        
         education.schools.forEach(function (school) {
@@ -215,8 +197,9 @@ education.display = function () {
     }
 };
 
+//Resume building calls
+bio.display();
+work.display();
+projects.display();
 education.display();
-
-
-
-
+$("#mapDiv").append(googleMap); 
