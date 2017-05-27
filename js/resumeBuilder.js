@@ -54,7 +54,7 @@ var work = {
         "description": "Team Leader for a software team"
     }
     ], 
-}
+}; 
 
 var projects = {
     "projects": [{
@@ -102,7 +102,7 @@ function displayBio() {
             $("#skills").append(fomattedSkill);
         });
     }
-};
+}
 
 function displayContact() {
     var formatedHTMLMobile = HTMLmobile.replace(replacementVariable, bio.contacts.mobile);
@@ -120,7 +120,7 @@ function displayContact() {
     var formatedHTMLLocation= HTMLlocation.replace(replacementVariable, bio.contacts.location);
     $("#topContacts").append(formatedHTMLLocation);
     $("#footerContacts").append(formatedHTMLLocation);
-};
+}
 
 bio.display = function () {
     displayBio();
@@ -141,7 +141,7 @@ function displayWork(job) {
     $(".work-entry:last").append(formattedDate);
     $(".work-entry:last").append(formattedLoacation);
     $(".work-entry:last").append(formattedDescription);
-};
+}
 
 work.display = function () {
     work.jobs.forEach(displayWork);
@@ -160,11 +160,11 @@ function displayProject(proj) {
         var formatedHTMLprejectImg = HTMLprojectImage.replace(replacementVariable, img);
         $(".project-entry:last").append(formatedHTMLprejectImg);
     });
-};
+}
 
 projects.display = function () {
     projects.projects.forEach(displayProject);
-}
+}; 
 
 //Education
 education.display = function () {
