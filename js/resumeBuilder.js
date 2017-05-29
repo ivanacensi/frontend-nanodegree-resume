@@ -10,16 +10,16 @@ var bio = {
         "github": "ivanacensi",
         "location": "Paris",
     },
-    "skills": [".NET", "Html","CSS","Javascript", "SQL", "NoSQL", "Software Craftmanship", "Project Management"], 
+    "skills": [".NET", "Html", "CSS", "Javascript", "SQL", "NoSQL", "Software Craftmanship", "Project Management"],
 };
 
 var education = {
     schools: [{
         "name": "ECE",
         "degree": "Master",
-        "dates": "2018",
+        "dates": "2008",
         "location": "Paris",
-        "major": ["Telecomunication and Network"],
+        "majors": ["Telecomunication and Network", "Finance"],
     },
     ],
     onlineCourses: [{
@@ -28,7 +28,7 @@ var education = {
         "dates": "2016-2017",
         "url": "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
     },
-    ], 
+    ],
 };
 
 var work = {
@@ -53,8 +53,8 @@ var work = {
         "dates": "2014-now",
         "description": "Team Leader for a software team"
     }
-    ], 
-}; 
+    ],
+};
 
 var projects = {
     "projects": [{
@@ -108,7 +108,7 @@ function displayContact() {
     var formatedHTMLMobile = HTMLmobile.replace(replacementVariable, bio.contacts.mobile);
     $("#topContacts").append(formatedHTMLMobile);
     $("#footerContacts").append(formatedHTMLMobile);
-    
+
     var formatedHTMLEmail = HTMLemail.replace(replacementVariable, bio.contacts.email);
     $("#topContacts").append(formatedHTMLEmail);
     $("#footerContacts").append(formatedHTMLEmail);
@@ -117,7 +117,7 @@ function displayContact() {
     $("#topContacts").append(formatedHTMLGithub);
     $("#footerContacts").append(formatedHTMLGithub);
 
-    var formatedHTMLLocation= HTMLlocation.replace(replacementVariable, bio.contacts.location);
+    var formatedHTMLLocation = HTMLlocation.replace(replacementVariable, bio.contacts.location);
     $("#topContacts").append(formatedHTMLLocation);
     $("#footerContacts").append(formatedHTMLLocation);
 }
@@ -164,18 +164,33 @@ function displayProject(proj) {
 
 projects.display = function () {
     projects.projects.forEach(displayProject);
-}; 
+};
 
 //Education
 education.display = function () {
-    if (education.schools.length > 0) {        
+    if (education.schools.length > 0) {
         education.schools.forEach(function (school) {
             $("#education").append(HTMLschoolStart);
             var formatedHTMLSchoolName = HTMLschoolName.replace(replacementVariable, school.name);
             var formatedHTMLSchoolDegree = HTMLschoolDegree.replace(replacementVariable, school.degree);
             var formatedHTMLSchoolDates = HTMLschoolDates.replace(replacementVariable, school.dates);
             var formatedHTMLSchoolLocaTion = HTMLschoolLocation.replace(replacementVariable, school.location);
-            var formatedHTMLSchoolMajor = HTMLschoolMajor.replace(replacementVariable, school.major);
+            var formatedHTMLSchoolMajor;
+            if (school.majors.length > 1) {
+                var concatMajors;
+                school.majors.forEach(function (major) {
+                    if (concatMajors !== undefined) {
+                        concatMajors = concatMajors + " / " + major;
+                    }
+                    else {
+                        concatMajors = major;
+                    }
+                }, concatMajors);
+                formatedHTMLSchoolMajor = HTMLschoolMajor.replace(replacementVariable, concatMajors);
+            }
+            else {
+                formatedHTMLSchoolMajor = HTMLschoolMajor.replace(replacementVariable, school.majors);
+            }
             $(".education-entry:last").append(formatedHTMLSchoolName + formatedHTMLSchoolDegree);
             $(".education-entry:last").append(formatedHTMLSchoolDates);
             $(".education-entry:last").append(formatedHTMLSchoolLocaTion);
